@@ -1,0 +1,25 @@
+#############################################
+Searching for kernel: propagation_step_kernel
+
+Line: 170
+        .size   _Z23propagation_step_kerneliiiiiiPKiS0_iiS0_S0_PdS1_, .Lfunc_end0-_Z23propagation_step_kerneliiiiiiPKiS0_iiS0_S0_PdS1_
+                                        ; -- End function
+        .section        .AMDGPU.csdata
+; Kernel info:
+; codeLenInByte = 548
+; NumSgprs: 16
+; NumVgprs: 6
+; NumAgprs: 0
+; TotalNumVgprs: 6
+; ScratchSize: 0
+; MemoryBound: 0
+; FloatMode: 240
+; IeeeMode: 1
+; LDSByteSize: 0 bytes/workgroup (compile time only)
+; SGPRBlocks: 1
+; VGPRBlocks: 0
+; NumSGPRsForWavesPerEU: 16
+; NumVGPRsForWavesPerEU: 6
+; AccumOffset: 8
+; Occupancy: 8
+; WaveLimiterHint : 1

@@ -1,0 +1,25 @@
+#############################################
+Searching for kernel: update_variables_from_old_distribution_kernel
+
+Line: 677
+        .size   _Z45update_variables_from_old_distribution_kerneliibiiPKiS0_iS0_S0_S0_S0_PKdPd, .Lfunc_end0-_Z45update_variables_from_old_distribution_kerneliibiiPKiS0_iS0_S0_S0_S0_PKdPd
+                                        ; -- End function
+        .section        .AMDGPU.csdata
+; Kernel info:
+; codeLenInByte = 4248
+; NumSgprs: 30
+; NumVgprs: 64
+; NumAgprs: 0
+; TotalNumVgprs: 64
+; ScratchSize: 0
+; MemoryBound: 0
+; FloatMode: 240
+; IeeeMode: 1
+; LDSByteSize: 13824 bytes/workgroup (compile time only)
+; SGPRBlocks: 3
+; VGPRBlocks: 7
+; NumSGPRsForWavesPerEU: 30
+; NumVGPRsForWavesPerEU: 64
+; AccumOffset: 64
+; Occupancy: 4
+; WaveLimiterHint : 1

@@ -1,0 +1,16 @@
+CC = $(ROCM_PATH)/bin/amdclang
+CFLAGS= -Wall -std=c++11 -target x86_64-pc-linux-gnu -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx90a -I. 
+CPPFLAGS = 
+DEPS = 
+OBJ = saxpy.o  
+
+%.o: %.c $(DEPS)
+	$(CC) $(CPPFLAGS) -c -o $@ $< $(CFLAGS)
+
+saxpy: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)	
+
+.PHONY: clean
+
+clean:
+	rm -f *.o saxpy

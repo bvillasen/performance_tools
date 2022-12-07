@@ -1,0 +1,1 @@
+mpirun -n 4 --map-by numa:PE=1 --report-bindings ./omp_report

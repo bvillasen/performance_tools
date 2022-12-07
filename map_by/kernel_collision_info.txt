@@ -1,0 +1,25 @@
+#############################################
+Searching for kernel: collision_step_kernel_shared_mem
+
+Line: 970
+        .size   _Z32collision_step_kernel_shared_memiiiiiiPKiS0_ddddddddddddddddddS0_S0_S0_PiS1_PdS2_S2_S2_S2_, .Lfunc_end0-_Z32collision_step_kernel_shared_memiiiiiiPKiS0_ddddddddddddddddddS0_S0_S0_PiS1_PdS2_S2_S2_S2_
+                                        ; -- End function
+        .section        .AMDGPU.csdata
+; Kernel info:
+; codeLenInByte = 6692
+; NumSgprs: 66
+; NumVgprs: 116
+; NumAgprs: 0
+; TotalNumVgprs: 116
+; ScratchSize: 256
+; MemoryBound: 0
+; FloatMode: 240
+; IeeeMode: 1
+; LDSByteSize: 13824 bytes/workgroup (compile time only)
+; SGPRBlocks: 8
+; VGPRBlocks: 14
+; NumSGPRsForWavesPerEU: 66
+; NumVGPRsForWavesPerEU: 116
+; AccumOffset: 116
+; Occupancy: 4
+; WaveLimiterHint : 1

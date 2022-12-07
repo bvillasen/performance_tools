@@ -1,0 +1,5 @@
+Total global memory (bytes): 68702699520
+Shared memory per block (bytes): 65536
+Registers per block: 65536
+Warp size: 64
+Max threads per block: 1024
