@@ -16,9 +16,9 @@ int main(void)
 {
   int device_id = omp_get_default_device();
   size_t bytes = length*sizeof(double);
-  double * __restrict A;
-  double * __restrict B;
-  double * __restrict C;
+  double * A;
+  double * B;
+  double * C;
   double scalar = 3.0;
   double ar;
   double br;
