@@ -1,0 +1,17 @@
+CC= amdclang++
+CFLAGS= -Wall -std=c++11 -fopenmp -fopenmp-targets=amdgcn-amd-amdhsa -Xopenmp-target=amdgcn-amd-amdhsa -march=gfx90a -I. 
+# CFLAGS= -Wall -std=c++14 -fopenmp --offload-arch=gfx90a -I. 
+CPPFLAGS = -D_OPENMP
+DEPS = 
+OBJ = use_device_ptr.o  
+
+%.o: %.c $(DEPS)
+	$(CC) $(CPPFLAGS) -c -o $@ $< $(CFLAGS)
+
+use_device_ptr: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)	
+
+.PHONY: clean
+
+clean:
+	rm -f *.o hello_world

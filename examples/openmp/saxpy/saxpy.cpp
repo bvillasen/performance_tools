@@ -84,7 +84,7 @@ int main()
 //     d_y[i] = a * d_x[i] + d_y[i];
 //   }
 
-  t = te - ts;
+  t = (te - ts)/n_iter;
   printf("Time of kernel in device %1f \n", t );
 
 

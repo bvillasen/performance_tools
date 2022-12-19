@@ -3,7 +3,7 @@
 #include <omp.h>
 #include <mpi.h>
 
-#define SZ 1024 * 1024 * 128 * 2
+#define SZ 1024 * 1024 * 128 * 10
 
 int main( int argc, char* argv[] ) 
 {
@@ -58,7 +58,7 @@ int main( int argc, char* argv[] )
   t = te - ts;
   printf("Time of kernel in host %1f \n", t );
 
-  int n_iter = 10;
+  int n_iter = 1000;
 
   // Copy x and y arrays to the gpu.  
   #pragma omp target data map(to:d_x[0:SZ]) map(tofrom:d_y[0:SZ]) 
@@ -76,10 +76,10 @@ int main( int argc, char* argv[] )
 
 
   }
+  }
 
   te = omp_get_wtime();
 
-  }
 
 // #pragma omp target teams distribute parallel for simd \
 //           map(to:d_x[0:SZ]) map(tofrom:d_y[0:SZ]) 
@@ -87,8 +87,8 @@ int main( int argc, char* argv[] )
 //     d_y[i] = a * d_x[i] + d_y[i];
 //   }
 
-  t = te - ts;
-  printf("Time of kernel in device %1f \n", t );
+  t = (te - ts) / n_iter;
+  printf("Time of kernel in device  %1f   n_iter: %d \n", t, n_iter );
 
 
 
