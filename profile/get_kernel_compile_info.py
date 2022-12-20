@@ -1,58 +1,54 @@
 import sys, os
+import subprocess
 
-def find_keywords( text, keywords ):
-  if keywords == []: return True
-  found_one = False
-  for keyword in keywords:
-    if text.find( keyword ) >= 0: return True
-  return False  
 
-def find_kernel_names( text ):
-  keywords = ['symbol']
-  n_lines = len(text)
-  kernel_lines =  [ line for line in text if find_keywords(line, keywords)  ]
-  kernel_names = {} 
-  for id,line in enumerate(kernel_lines):
-    start_indx = line.find('Z') + 1
-    end_indx   = line.find('ii')
-    name = line[start_indx:end_indx]
-    while name[0].isnumeric():
-      name = name[1:] 
-    kernel_names[id] = name 
-    
-  return kernel_names
-
-def print_kernel_info( id, kernel_names, text, n_to_print=21 ):
-  kernel_name = kernel_names[id]  
+def print_kernel_info( id, kernels, text, n_to_print=11 ):
+  kernel_name = kernels[id]['name']  
+  line_id = kernels[id]['line_id']
   print( f'\n#############################################')
-  print( f'Searching for kernel: {kernel_name}')
-  keywords = [ 'size' ]
-  # keywords = []
-  kernel_lines =  [ line_id for line_id in range(n_lines) if  text[line_id].find( kernel_name ) >= 0 and find_keywords(text[line_id], keywords)  ]
-  for line_id in kernel_lines:
-    print( f'\nLine: {line_id}')
-    lines = text[line_id:line_id+n_to_print]
-    lines_text = ''
-    for line in lines: 
-      lines_text += line
-    print( lines_text )
+  print( f'Kernel: {kernel_name}')
+  lines_text = ''
+  lines = text[line_id:line_id+n_to_print]
+  for line in lines:
+    start_indx = line.find("remark") + 6
+    if start_indx < 0: continue
+    end_indx = line.find('[-Rpass')
+    if end_indx < 0: end_indx = len(line) 
+    lines_text += line[start_indx:end_indx] + '\n'
+  print( lines_text )
+
 
 args = sys.argv[1:]
 file_name = args[0]
-kernel_names = args[1:]
 
-print( f'Loading file: {file_name}' ) 
-file = open( file_name, 'r' )
-text = file.readlines()
-n_lines = len(text)
+print( f'Calling hipcc for file: {file_name} ')
 
-kernel_names = find_kernel_names( text )
+cmd = f'hipcc -Rpass-analysis=kernel-resource-usage --amdgpu-target=gfx90a {file_name}'
+
+p = subprocess.Popen(cmd, stderr=subprocess.PIPE, shell=True) 
+(output, err) = p.communicate()
+p_status = p.wait()
+output = str(err)
+lines = output.split("\\n")
+
+
+kernels = {}
+n_kernels = 0
+for  line_id, line in enumerate(lines): 
+  if line.find('Function Name') > 0:
+    indx_start = line.find('Function Name') + 19
+    indx_end = line.find('iii')
+    kernel_name = line[indx_start:indx_end]
+    kernels[n_kernels] = { 'name': kernel_name, 'line_id':line_id }
+    n_kernels += 1
+
+
 print( f'Kernel names: ')
-for id in kernel_names :
-  name = kernel_names[id]
-  print( f'id: {id}   name: {name}')
+for id in kernels :
+  name = kernels[id]['name']
+  print( f'id: {id}   name: {name}')    
 
 ids =  input('Kernel id to get info: ').split(' ')
 ids = [ int(id) for id in ids ]
 for id in ids:
-  print_kernel_info( id, kernel_names, text)
+  print_kernel_info( id, kernels, lines )  
