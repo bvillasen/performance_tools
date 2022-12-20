@@ -1,0 +1,10 @@
+#!/bin/bash
+GPUSID="4 5 2 3 6 7 0 1"
+GPUSID=(${GPUSID})
+if [ ${#GPUSID[@]} -gt 0 ]; then
+# N = $SLURM_NTASKS_PER_NODE / ${#GPUSID[@]}
+export ROCR_VISIBLE_DEVICES=${GPUSID[$(( $SLURM_LOCALID / ( 8 / ${#GPUSID[@]} )))]}
+# export ROCR_VISIBLE_DEVICES=${GPUSID[$(( $SLURM_LOCALID / N ))]}
+# export ROCR_VISIBLE_DEVICES=${GPUSID[$(( $SLURM_LOCALID ))]}
+fi 
+exec $*

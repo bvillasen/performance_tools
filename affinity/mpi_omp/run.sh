@@ -1,0 +1,1 @@
+ OMP_NUM_THREADS=2 OMP_PLACES=cores  OMP_PROC_BIND=close mpirun -n 8 -map-by socket -rank-by numa -bind-to numa  --report-bindings ./hello_mpi_omp
