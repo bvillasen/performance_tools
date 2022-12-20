@@ -1,1 +1,2 @@
- OMP_NUM_THREADS=2 OMP_PLACES=cores  OMP_PROC_BIND=close mpirun -n 8 -map-by socket -rank-by numa -bind-to numa  --report-bindings ./hello_mpi_omp
+ # 2 MPI ranks per numa and asign 8 resouces to each process (1 resource = 1 core)
+ OMP_NUM_THREADS=2 OMP_PLACES=cores  OMP_PROC_BIND=close mpirun -n 16 -map-by ppr:2:numa:pe=8 -rank-by core -bind-to core   --report-bindings ./hello_mpi_omp
